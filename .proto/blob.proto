@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "/proto";
+
+service Blob {
+  // Server streaming RPC
+  rpc Send (stream SendRequest) returns (SendResponse);
+
+  // Client streaming RPC
+  rpc Receive (stream ReceiveRequest) returns (ReceiveResponse);
+}
+
+message SendRequest {
+  string file_name = 1;
+  bytes data = 2;
+}
+
+message SendResponse {
+  string id = 1;
+  string file_size = 2;
+  string path = 3;
+}
+
+message ReceiveRequest {
+  string id = 1;
+}
+
+message ReceiveResponse {
+  string file_name = 1;
+  bytes data = 2;
+}
